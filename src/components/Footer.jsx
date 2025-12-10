@@ -1,5 +1,8 @@
 import React from "react";
-import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
+import { FaBook } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -8,9 +11,11 @@ const Footer = () => {
 
         {/* Logo & Description */}
         <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-1">
-            <span className="text-3xl font-extrabold text-sky-400">Page</span>
-            <span className="text-3xl font-extrabold text-black dark:text-white">Porter</span>
+          <div className="flex items-center gap-2">
+            <FaBook className="text-sky-400 text-3xl" />
+            <span className="text-3xl font-extrabold text-black dark:text-white" style={{ fontFamily: "'Playfair Display', serif" }}>
+              BookCourier
+            </span>
           </div>
           <p className="text-gray-600 dark:text-gray-400 max-w-xs">
             Delivering books from your library to your doorstep. Fast, reliable, and easy to use.
@@ -26,7 +31,7 @@ const Footer = () => {
           <a href="/register" className="hover:text-sky-400 transition">Register</a>
         </div>
 
-        {/* Social & Contact */}
+        {/* Social Icons */}
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-lg">Follow Us</h3>
           <div className="flex gap-4 text-xl mt-1">
@@ -37,7 +42,7 @@ const Footer = () => {
               <FaInstagram />
             </a>
             <a href="https://twitter.com" target="_blank" className="hover:text-sky-400 transition">
-              <FaTwitter />
+              <FaXTwitter />
             </a>
           </div>
         </div>
@@ -48,7 +53,7 @@ const Footer = () => {
 
       {/* Copyright */}
       <p className="text-center mt-4 text-sm text-gray-500 dark:text-gray-400">
-        © 2025 PagePorter. All rights reserved.
+        © 2025 BookCourier. All rights reserved.
       </p>
     </footer>
   );

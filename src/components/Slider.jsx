@@ -1,4 +1,4 @@
-// src/components/Slider.jsx
+
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -7,7 +7,7 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import { Link } from "react-router";
 
-// Import images from src/assets
+
 import bookImg from "../assets/book.jpg";
 import readImg from "../assets/read.jpg";
 import kidsImg from "../assets/kids.jpg";
