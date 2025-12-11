@@ -18,7 +18,7 @@ const Footer = () => {
             </span>
           </div>
           <p className="text-gray-600 dark:text-gray-400 max-w-xs">
-            Delivering books from your library to your doorstep. Fast, reliable, and easy to use.
+            Delivering books from library to your doorstep. Fast, reliable, and easy to use.
           </p>
         </div>
 
