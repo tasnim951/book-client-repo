@@ -21,5 +21,6 @@ body {
 .animate-smoothFade {
   animation: smoothFade 0.7s ease-out;
 }
+@import url('https://unpkg.com/leaflet/dist/leaflet.css');
 
 
