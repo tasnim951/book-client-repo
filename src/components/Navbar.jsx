@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { MdOutlineMenu, MdClose, MdDarkMode, MdLightMode } from "react-icons/md";
 import { FaBook } from "react-icons/fa"; 
+import profileImg from "../assets/profile.png"; // your profile image
+import { AuthContext } from "../provider/AuthProvider"; // your auth provider
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dark, setDark] = useState(false);
   const navigate = useNavigate();
+  const { user, logoutUser } = useContext(AuthContext);
 
   const toggleTheme = () => {
     const html = document.documentElement;
@@ -29,7 +32,13 @@ const Navbar = () => {
   ];
 
   const handleDashboard = () => {
-    navigate("/dashboard/user"); // default user
+    navigate("/dashboard/user");
+  };
+
+  const handleLogout = () => {
+    logoutUser()
+      .then(() => navigate("/"))
+      .catch(err => console.error(err));
   };
 
   return (
@@ -44,8 +53,8 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((item) => (
+        <div className="hidden md:flex items-center gap-4">
+          {navLinks.map(item => (
             <NavLink
               key={item.name}
               to={item.path}
@@ -68,19 +77,38 @@ const Navbar = () => {
             Dashboard
           </button>
 
-          <Link
-            to="/login"
-            className="px-4 py-2 rounded-lg hover:bg-sky-200 dark:hover:bg-sky-700 font-semibold"
-          >
-            Login
-          </Link>
+          {!user ? (
+            <>
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-lg hover:bg-sky-200 dark:hover:bg-sky-700 font-semibold"
+              >
+                Login
+              </Link>
 
-          <Link
-            to="/register"
-            className="px-4 py-2 rounded-lg bg-sky-400 text-white hover:bg-sky-500"
-          >
-            Register
-          </Link>
+              <Link
+                to="/register"
+                className="px-4 py-2 rounded-lg bg-sky-400 text-white hover:bg-sky-500"
+              >
+                Register
+              </Link>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+              >
+                Logout
+              </button>
+              <img
+                src={profileImg}
+                alt="Profile"
+                onClick={() => navigate("/profile")}
+                className="w-8 h-8 rounded-full cursor-pointer border-2 border-sky-400"
+              />
+            </>
+          )}
 
           <button
             onClick={toggleTheme}
@@ -90,7 +118,7 @@ const Navbar = () => {
           </button>
         </div>
 
-       
+        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-3xl"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -99,11 +127,11 @@ const Navbar = () => {
         </button>
       </div>
 
-      
+      {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-white dark:bg-gray-900 shadow-md">
           <div className="flex flex-col gap-3 px-5 py-4">
-            {navLinks.map((item) => (
+            {navLinks.map(item => (
               <NavLink
                 key={item.name}
                 to={item.path}
@@ -124,21 +152,46 @@ const Navbar = () => {
               Dashboard
             </button>
 
-            <Link
-              to="/login"
-              onClick={() => setMenuOpen(false)}
-              className="px-4 py-2 rounded-lg hover:bg-sky-200 dark:hover:bg-sky-700"
-            >
-              Login
-            </Link>
+            {!user ? (
+              <>
+                <Link
+                  to="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2 rounded-lg hover:bg-sky-200 dark:hover:bg-sky-700"
+                >
+                  Login
+                </Link>
 
-            <Link
-              to="/register"
-              onClick={() => setMenuOpen(false)}
-              className="px-4 py-2 rounded-lg bg-sky-400 text-white hover:bg-sky-500"
-            >
-              Register
-            </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2 rounded-lg bg-sky-400 text-white hover:bg-sky-500"
+                >
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                  className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                >
+                  Logout
+                </button>
+                <img
+                  src={profileImg}
+                  alt="Profile"
+                  onClick={() => {
+                    navigate("/profile");
+                    setMenuOpen(false);
+                  }}
+                  className="w-8 h-8 rounded-full cursor-pointer border-2 border-sky-400"
+                />
+              </>
+            )}
 
             <button
               onClick={toggleTheme}
