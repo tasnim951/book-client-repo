@@ -43,7 +43,9 @@ const LatestBooks = () => {
                 By {book.author}
               </p>
               <p className="text-gray-700 dark:text-gray-200 font-semibold">
-                ${book.price.toFixed(2)}
+                ${Number(book.price).toFixed(2)}
+                
+
               </p>
             </div>
           </div>
