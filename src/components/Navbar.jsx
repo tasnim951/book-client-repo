@@ -32,7 +32,7 @@ const Navbar = () => {
   ];
 
   const handleDashboard = () => {
-    navigate("/dashboard/user");
+    navigate("/dashboard");
   };
 
   const handleLogout = () => {
