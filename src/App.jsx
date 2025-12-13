@@ -37,6 +37,15 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   return children;
 };
 
+// DashboardRedirect Component
+const DashboardRedirect = () => {
+  const { role } = useAuth();
+
+  if (role === "admin") return <Navigate to="/dashboard/all-users" />;
+  if (role === "librarian") return <Navigate to="/dashboard/add-book" />;
+  return <Navigate to="/dashboard/my-orders" />; // default for users
+};
+
 function App() {
   return (
     <BrowserRouter>
@@ -52,6 +61,9 @@ function App() {
 
         {/* DASHBOARD LAYOUT */}
         <Route path="/dashboard" element={<DashboardLayout />}>
+          {/* Redirect default dashboard */}
+          <Route index element={<DashboardRedirect />} />
+
           {/* USER DASHBOARD */}
           <Route
             path="my-orders"
