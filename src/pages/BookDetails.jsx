@@ -44,11 +44,15 @@ const BookDetails = () => {
     // Get Firebase ID token
     const idToken = await user.getIdToken();
 
+
+
+
     const orderData = {
       bookId: book._id,
       bookTitle: book.title,
       userName: user.displayName || "No Name",
       userEmail: user.email,
+      price: book.price,
       phone,
       address,
       date: new Date().toISOString(),
@@ -66,19 +70,25 @@ const BookDetails = () => {
         body: JSON.stringify(orderData),
       });
 
-      const result = await res.json();
+     const result = await res.json();
 
-      if (result.insertedId) {
-        alert("Order placed successfully!");
-        setShowModal(false);
-      } else {
-        alert(result.message || "Failed to place order");
-      }
+if (result.success) {
+  alert("Order placed successfully!");
+  setShowModal(false);
+} else {
+  alert("Failed to place order");
+}
+
     } catch (error) {
       console.error(error);
       alert("Error placing order");
     }
   };
+
+
+
+
+  
 
   if (loading) {
     return <div className="text-center py-20 text-gray-500">Loading book details...</div>;
