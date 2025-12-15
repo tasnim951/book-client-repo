@@ -74,8 +74,9 @@ const Orders = () => {
           <tbody>
             {orders.map((order) => (
               <tr key={order._id} className="text-center border-b">
-                <td className="py-2 px-4">{order.bookName}</td>
-                <td className="py-2 px-4">{order.userEmail}</td>
+                <td className="py-2 px-4">{order.
+bookTitle}</td>
+                <td className="py-2 px-4">{order.userName}</td>
                 <td className="py-2 px-4 capitalize">{order.status}</td>
                 <td className="py-2 px-4 space-x-2">
                   {order.status !== "cancelled" && (
