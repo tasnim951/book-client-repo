@@ -3,8 +3,15 @@ import { useAuth } from "../../provider/AuthProvider";
 
 const MyProfile = () => {
   const { user, updateUserProfile } = useAuth();
-  const [name, setName] = useState(user?.displayName || "");
-  const [photoURL, setPhotoURL] = useState(user?.photoURL || "");
+  const [name, setName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setName(user.displayName || "");
+      setPhotoURL(user.photoURL || "");
+    }
+  }, [user]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -18,34 +25,36 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="bg-white shadow rounded p-6 max-w-md">
-      <h2 className="text-xl font-bold mb-4 text-sky-800">My Profile</h2>
-      <form onSubmit={handleUpdate} className="space-y-4">
+    <div className="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6">
+      <h2 className="text-2xl font-bold text-sky-700 mb-6">My Profile</h2>
+      <form onSubmit={handleUpdate} className="space-y-5">
         <div>
-          <label className="block font-medium mb-1">Name</label>
+          <label className="block font-medium mb-1 text-gray-700">Full Name</label>
           <input
             type="text"
             value={name}
-            onChange={e => setName(e.target.value)}
-            className="w-full border px-3 py-2 rounded"
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
             required
           />
         </div>
         <div>
-          <label className="block font-medium mb-1">Profile Image URL</label>
+          <label className="block font-medium mb-1 text-gray-700">Profile Image URL</label>
           <input
             type="text"
             value={photoURL}
-            onChange={e => setPhotoURL(e.target.value)}
-            className="w-full border px-3 py-2 rounded"
+            onChange={(e) => setPhotoURL(e.target.value)}
+            className="w-full px-4 py-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-sky-500"
           />
         </div>
-        <button
-          type="submit"
-          className="px-4 py-2 bg-sky-600 text-white rounded hover:bg-sky-700"
-        >
-          Update Profile
-        </button>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="px-6 py-3 bg-sky-600 text-white rounded-md hover:bg-sky-700 transition"
+          >
+            Update Profile
+          </button>
+        </div>
       </form>
     </div>
   );

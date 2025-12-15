@@ -12,6 +12,7 @@ import NotFound from "./pages/NotFound";
 import MyOrders from "./dashboard/user/MyOrders";
 import MyProfile from "./dashboard/user/MyProfile";
 import Invoices from "./dashboard/user/Invoices";
+import Payment from "./dashboard/user/Payment"
 
 // LIBRARIAN PAGES
 import AddBook from "./dashboard/librarian/AddBook";
@@ -88,7 +89,16 @@ function App() {
                 <Invoices />
               </ProtectedRoute>
             }
-          />
+            />
+             <Route
+                path="payment/:id"
+             element={
+                  <ProtectedRoute allowedRoles={["user"]}>
+                     <Payment />
+                   </ProtectedRoute>
+                     }
+           />
+           
 
           {/* LIBRARIAN DASHBOARD */}
           <Route
@@ -134,6 +144,8 @@ function App() {
             }
           />
         </Route>
+
+        
 
         {/* 404 */}
         <Route path="*" element={<NotFound />} />

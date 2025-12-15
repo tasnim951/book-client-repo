@@ -1,145 +1,87 @@
 import { Link, useLocation } from "react-router";
-import { useState } from "react";
+import { FiHome, FiX } from "react-icons/fi";
 
 const Sidebar = ({ user, role, isOpen, toggleSidebar }) => {
   const location = useLocation();
-
-  // Helper to highlight active link
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) =>
+    location.pathname === path ? "bg-sky-100 font-semibold" : "";
 
   return (
     <>
-      {/* Sidebar Overlay for small screens */}
+      {/* Overlay (mobile only) */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black opacity-30 z-30 md:hidden"
           onClick={toggleSidebar}
-        ></div>
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+        />
       )}
 
-      <div
-        className={`bg-sky-200 min-h-screen p-4 transition-all duration-300
-        ${isOpen ? "w-64" : "w-0 overflow-hidden"} 
-        md:w-64 fixed md:relative top-0 left-0 z-40 shadow-lg`}
+      {/* Sidebar */}
+      <aside
+        className={`fixed md:static top-0 left-0 z-50 h-screen md:h-auto w-64 bg-sky-200 shadow-lg
+          transform transition-transform duration-300
+          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          md:translate-x-0`}
       >
-        {isOpen && (
-          <>
-            {/* User Info */}
-            <div className="mb-6 flex items-center gap-3">
-              <img
-                src={user?.photoURL || "https://via.placeholder.com/40"}
-                className="w-12 h-12 rounded-full border-2 border-sky-800"
-                alt="profile"
-              />
-              <div>
-                <p className="font-bold text-sky-800">{user?.displayName || "User"}</p>
-                <p className="text-sm text-sky-700 capitalize">{role}</p>
-              </div>
-            </div>
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-sky-300">
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-sky-800 font-bold text-lg"
+          >
+            <FiHome /> Home
+          </Link>
 
-            {/* Links */}
-            <ul className="space-y-2 font-medium text-sky-800">
-              {/* USER */}
-              {role === "user" && (
-                <>
-                  <li>
-                    <Link
-                      to="/dashboard/my-orders"
-                      className={isActive("/dashboard/my-orders") ? "font-bold underline" : ""}
-                    >
-                      My Orders
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/profile"
-                      className={isActive("/dashboard/profile") ? "font-bold underline" : ""}
-                    >
-                      My Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/invoices"
-                      className={isActive("/dashboard/invoices") ? "font-bold underline" : ""}
-                    >
-                      Invoices
-                    </Link>
-                  </li>
-                </>
-              )}
+          {/* Close button (mobile only) */}
+          <button onClick={toggleSidebar} className="md:hidden text-2xl">
+            <FiX />
+          </button>
+        </div>
 
-              {/* LIBRARIAN */}
-              {role === "librarian" && (
-                <>
-                  <li>
-                    <Link
-                      to="/dashboard/add-book"
-                      className={isActive("/dashboard/add-book") ? "font-bold underline" : ""}
-                    >
-                      Add Book
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/my-books"
-                      className={isActive("/dashboard/my-books") ? "font-bold underline" : ""}
-                    >
-                      My Books
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/orders"
-                      className={isActive("/dashboard/orders") ? "font-bold underline" : ""}
-                    >
-                      Orders
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/profile"
-                      className={isActive("/dashboard/profile") ? "font-bold underline" : ""}
-                    >
-                      My Profile
-                    </Link>
-                  </li>
-                </>
-              )}
+        {/* User Info */}
+        <div className="p-4 flex items-center gap-3 border-b border-sky-300">
+          <img
+            src={user?.photoURL || "https://via.placeholder.com/40"}
+            className="w-12 h-12 rounded-full border"
+            alt="profile"
+          />
+          <div>
+            <p className="font-semibold">{user?.displayName || "User"}</p>
+            <p className="text-sm capitalize text-gray-600">{role}</p>
+          </div>
+        </div>
 
-              {/* ADMIN */}
-              {role === "admin" && (
-                <>
-                  <li>
-                    <Link
-                      to="/dashboard/all-users"
-                      className={isActive("/dashboard/all-users") ? "font-bold underline" : ""}
-                    >
-                      All Users
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/manage-books"
-                      className={isActive("/dashboard/manage-books") ? "font-bold underline" : ""}
-                    >
-                      Manage Books
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/dashboard/profile"
-                      className={isActive("/dashboard/profile") ? "font-bold underline" : ""}
-                    >
-                      My Profile
-                    </Link>
-                  </li>
-                </>
-              )}
-            </ul>
-          </>
-        )}
-      </div>
+        {/* Navigation */}
+        <nav className="px-4 py-4 space-y-1 text-sky-800">
+          {/* USER */}
+          {role === "user" && (
+            <>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/my-orders")}`} to="/dashboard/my-orders">My Orders</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/invoices")}`} to="/dashboard/invoices">Invoices</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/profile")}`} to="/dashboard/profile">My Profile</Link>
+            </>
+          )}
+
+          {/* LIBRARIAN */}
+          {role === "librarian" && (
+            <>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/add-book")}`} to="/dashboard/add-book">Add Book</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/my-books")}`} to="/dashboard/my-books">My Books</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/orders")}`} to="/dashboard/orders">Orders</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/profile")}`} to="/dashboard/profile">My Profile</Link>
+            </>
+          )}
+
+          {/* ADMIN */}
+          {role === "admin" && (
+            <>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/all-users")}`} to="/dashboard/all-users">All Users</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/manage-books")}`} to="/dashboard/manage-books">Manage Books</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/profile")}`} to="/dashboard/profile">My Profile</Link>
+            </>
+          )}
+        </nav>
+      </aside>
     </>
   );
 };
