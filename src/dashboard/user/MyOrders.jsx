@@ -47,7 +47,8 @@ const MyOrders = () => {
             <tr>
               <th className="px-6 py-3 text-left">Book Title</th>
               <th className="px-6 py-3 text-left">Order Date</th>
-              <th className="px-6 py-3 text-left">Status</th>
+              {/* Status column hidden on small screens */}
+              <th className="px-6 py-3 text-left hidden md:table-cell">Status</th>
               <th className="px-6 py-3 text-left">Actions</th>
             </tr>
           </thead>
@@ -59,24 +60,25 @@ const MyOrders = () => {
                 <td className="px-6 py-4">
                   {new Date(order.orderedAt).toLocaleDateString()}
                 </td>
-                <td className="px-6 py-4 capitalize">
+                {/* Status hidden on small screens */}
+                <td className="px-6 py-4 capitalize hidden md:table-cell">
                   {order.status}
                 </td>
 
-                <td className="px-6 py-4 space-x-2">
+                <td className="px-6 py-4 flex flex-wrap gap-2">
                   {order.status === "pending" &&
                     order.paymentStatus === "unpaid" && (
                       <>
                         <button
                           onClick={() => handleCancel(order._id)}
-                          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                          className="px-3 py-1 bg-sky-500 text-white rounded hover:bg-sky-600 transition-colors"
                         >
                           Cancel
                         </button>
 
                         <button
                           onClick={() => handlePayNow(order._id)}
-                          className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
+                          className="px-3 py-1 bg-sky-600 text-white rounded hover:bg-sky-700 transition-colors"
                         >
                           Pay Now
                         </button>
@@ -84,7 +86,7 @@ const MyOrders = () => {
                     )}
 
                   {order.paymentStatus === "paid" && (
-                    <span className="text-green-600 font-semibold">
+                    <span className="text-blue-600 text-xl font-semibold">
                       Paid
                     </span>
                   )}
