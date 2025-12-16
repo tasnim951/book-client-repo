@@ -4,7 +4,7 @@
 BookCourier is a library-to-home book delivery system that allows users to browse, order, and receive books without visiting the library. Librarians can manage books and orders, and admins can manage users and books.
 
 ## Live URL
-[(https://deluxe-cat-ff5d85.netlify.app/)]
+[(https://dazzling-frangollo-06a1cd.netlify.app/)]
 
 ## Key Features
 - **Browse & Order Books:** View book details, place orders via a modal form (pre-filled name/email), order status: `pending`, payment status: `unpaid`.
