@@ -5,7 +5,7 @@ const PrivateRoute = ({ children, roles }) => {
   const { user, role, loading } = useAuth();
 
   if (loading) {
-    return <p>Loading...</p>; // Optional: replace with spinner or skeleton
+    return <p>Loading...</p>; 
   }
 
   if (!user) {
@@ -14,11 +14,11 @@ const PrivateRoute = ({ children, roles }) => {
   }
 
   if (roles && !roles.includes(role)) {
-    // User logged in but doesn't have permission
-    return <Navigate to="/dashboard/my-orders" replace />; // redirect to a safe page
+   
+    return <Navigate to="/dashboard/my-orders" replace />; 
   }
 
-  // User is logged in and has correct role
+ 
   return children;
 };
 

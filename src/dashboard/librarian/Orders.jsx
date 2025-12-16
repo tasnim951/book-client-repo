@@ -11,7 +11,7 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         const token = await user.getIdToken();
-        const res = await axios.get(`http://localhost:5000/librarian/orders`, {
+        const res = await axios.get(`https://bookcourier-server-bice.vercel.app/librarian/orders`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setOrders(res.data);
@@ -26,7 +26,7 @@ const Orders = () => {
     try {
       const token = await user.getIdToken();
       await axios.patch(
-        `http://localhost:5000/orders/${order._id}/status`,
+        `https://bookcourier-server-bice.vercel.app/orders/${order._id}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -44,7 +44,7 @@ const Orders = () => {
     try {
       const token = await user.getIdToken();
       await axios.patch(
-        `http://localhost:5000/orders/${order._id}/cancel`,
+        `https://bookcourier-server-bice.vercel.app/orders/${order._id}/cancel`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -80,7 +80,7 @@ const Orders = () => {
                 <td className="py-2 px-4 space-x-2 flex justify-center flex-wrap">
                   {order.status !== "cancelled" ? (
                     <>
-                      {/* Status Select */}
+                     
                       <select
                         value={order.status}
                         onChange={(e) => handleStatusChange(order, e.target.value)}
@@ -103,7 +103,7 @@ const Orders = () => {
                         <option value="delivered">Delivered</option>
                       </select>
 
-                      {/* Cancel button only for pending */}
+                      
                       {order.status === "pending" && (
                         <button
                           onClick={() => handleCancel(order)}

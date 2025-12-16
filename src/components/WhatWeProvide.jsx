@@ -37,10 +37,10 @@ const WhatWeProvide = () => {
         </p>
       </div>
 
-      {/* Main Flex Container */}
+     
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
 
-        {/* LEFT SIDE — Animated Blurry Cards */}
+     
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 col-span-2">
           {cards.map((item, index) => (
             <div
@@ -70,7 +70,7 @@ const WhatWeProvide = () => {
           ))}
         </div>
 
-        {/* RIGHT SIDE — Clean Modern Section */}
+       
         <div
           className="
             rounded-2xl p-4 sm:p-6 shadow-lg 

@@ -12,7 +12,7 @@ const MyWishlist = () => {
     const loadWishlist = async () => {
       const token = await user.getIdToken();
       const res = await fetch(
-        `http://localhost:5000/wishlist?email=${user.email}`,
+        `https://bookcourier-server-bice.vercel.app/wishlist?email=${user.email}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const MyWishlist = () => {
   const handleRemove = async (id) => {
     const token = await user.getIdToken();
 
-    await fetch(`http://localhost:5000/wishlist/${id}`, {
+    await fetch(`https://bookcourier-server-bice.vercel.app/wishlist/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

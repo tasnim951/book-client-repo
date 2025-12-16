@@ -11,7 +11,7 @@ const AllBooks = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/allbooks")
+      .get("https://bookcourier-server-bice.vercel.app/allbooks")
       .then((res) => {
         setBooks(res.data);
         setLoading(false);
@@ -29,7 +29,7 @@ const AllBooks = () => {
         All <span className="text-sky-500">Books</span>
       </h2>
 
-      {/* SEARCH BAR */}
+      
       <div className="max-w-xl mx-auto mb-10">
         <input
           type="text"
@@ -41,9 +41,9 @@ const AllBooks = () => {
         />
       </div>
 
-      {/* BOOK CARDS */}
+      
       {loading ? (
-        // Skeleton Loader
+        
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
           {Array.from({ length: 8 }).map((_, i) => (
             <div
@@ -62,7 +62,7 @@ const AllBooks = () => {
               rounded-xl overflow-hidden shadow-md 
               hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
             >
-              {/* Image */}
+             
               <div className="h-56 overflow-hidden">
                 <img
                   src={book.image}
@@ -71,7 +71,7 @@ const AllBooks = () => {
                 />
               </div>
 
-              {/* Content */}
+             
               <div className="p-5">
                 <h3 className="text-lg font-bold text-black dark:text-white">
                   {book.title}
@@ -92,7 +92,7 @@ const AllBooks = () => {
 
                   <button
                     onClick={(e) => {
-                      e.stopPropagation(); // prevent card click navigation
+                      e.stopPropagation(); 
                       navigate(`/book/${book._id}`);
                     }}
                     className="bg-sky-500 hover:bg-sky-600 px-4 py-1.5 text-white text-sm rounded-lg transition"

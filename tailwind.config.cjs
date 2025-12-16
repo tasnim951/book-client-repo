@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: "class", // important!
+  darkMode: "class", 
   content: [
     "./index.html",
     "./src/**/*.{js,jsx,ts,tsx}"
@@ -8,10 +8,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        skyblue: "#87CEEB", // custom sky blue
+        skyblue: "#87CEEB", 
       },
       fontFamily: {
-        stylish: ["Poppins", "sans-serif"], // optional stylish font
+        stylish: ["Poppins", "sans-serif"], 
       },
     },
   },

@@ -6,7 +6,7 @@ const Invoices = () => {
   const [invoices, setInvoices] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/myinvoices", {
+    fetch("https://bookcourier-server-bice.vercel.app/myinvoices", {
       headers: {
         Authorization: `Bearer ${user ? user.accessToken : ""}`,
       },
@@ -35,7 +35,10 @@ const Invoices = () => {
                 <td className="px-4 py-2 font-medium">{inv.paymentId}</td>
                 <td className="px-4 py-2 hidden lg:table-cell">{inv.bookTitle || "-"}</td>
                 <td className="px-4 py-2 font-semibold text-sky-700">
-                  ${inv.amount?.toFixed(2) || "0.00"}
+                  ${Number(inv.amount || 0).toFixed(2)}
+
+
+
                 </td>
                 <td className="px-4 py-2 hidden md:table-cell">
                   {new Date(inv.date).toLocaleDateString()}

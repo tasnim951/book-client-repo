@@ -19,7 +19,7 @@ const BookDetails = () => {
 
   
   useEffect(() => {
-    fetch(`http://localhost:5000/book/${id}`)
+    fetch(`https://bookcourier-server-bice.vercel.app/book/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBook(data);
@@ -29,7 +29,7 @@ const BookDetails = () => {
 
   
   useEffect(() => {
-    fetch(`http://localhost:5000/reviews?bookId=${id}`)
+    fetch(`https://bookcourier-server-bice.vercel.app/reviews?bookId=${id}`)
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, [id]);
@@ -71,7 +71,7 @@ const BookDetails = () => {
         paymentStatus: "unpaid",
       };
 
-      const res = await fetch("http://localhost:5000/order", {
+      const res = await fetch("https://bookcourier-server-bice.vercel.app/order", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const BookDetails = () => {
   const handleWishlist = async () => {
     try {
       const token = await user.getIdToken();
-      const res = await fetch("http://localhost:5000/wishlist", {
+      const res = await fetch("https://bookcourier-server-bice.vercel.app/wishlist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -144,7 +144,7 @@ const BookDetails = () => {
     try {
       const token = await user.getIdToken();
 
-      const res = await fetch("http://localhost:5000/reviews", {
+      const res = await fetch("https://bookcourier-server-bice.vercel.app/reviews", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

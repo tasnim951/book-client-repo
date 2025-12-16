@@ -14,7 +14,7 @@ const coverageCities = [
 const Coverage = () => {
   const [search, setSearch] = useState("");
 
-  // Filter cities based on search
+  
   const filteredCities = coverageCities.filter(city =>
     city.name.toLowerCase().includes(search.toLowerCase())
   );
@@ -25,7 +25,7 @@ const Coverage = () => {
         Our Delivery Coverage
       </h2>
 
-      {/* Search Bar */}
+     
       <div className="flex justify-center mb-8">
         <input
           type="text"
@@ -56,7 +56,6 @@ const Coverage = () => {
           </MapContainer>
         </div>
 
-        {/* Cities list */}
         <div className="flex flex-col justify-center">
           <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
             Cities We Deliver To:

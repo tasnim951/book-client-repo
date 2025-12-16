@@ -31,9 +31,9 @@ import MyWishlist from "./dashboard/MyWishlist";
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, role, loading } = useAuth();
 
-  if (loading) return <p>Loading...</p>; // optional loading screen
+  if (loading) return <p>Loading...</p>; 
 
-  if (!user) return <Navigate to="/login" />; // not logged in
+  if (!user) return <Navigate to="/login" />; 
   if (allowedRoles && !allowedRoles.includes(role)) return <Navigate to="/dashboard" />; // wrong role
 
   return children;
@@ -45,7 +45,7 @@ const DashboardRedirect = () => {
 
   if (role === "admin") return <Navigate to="/dashboard/all-users" />;
   if (role === "librarian") return <Navigate to="/dashboard/add-book" />;
-  return <Navigate to="/dashboard/my-orders" />; // default for users
+  return <Navigate to="/dashboard/my-orders" />; 
 };
 
 function App() {
@@ -63,6 +63,8 @@ function App() {
 
         {/* DASHBOARD LAYOUT */}
         <Route path="/dashboard" element={<DashboardLayout />}>
+
+        
           {/* Redirect default dashboard */}
           <Route index element={<DashboardRedirect />} />
 

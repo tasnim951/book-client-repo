@@ -11,7 +11,7 @@ const reviews = [
 const Testimonials = () => {
   const containerRef = useRef(null);
 
-  // Continuous scrolling effect
+ 
   useEffect(() => {
     const container = containerRef.current;
     let scrollAmount = 0;
@@ -19,7 +19,7 @@ const Testimonials = () => {
     const scroll = () => {
       scrollAmount += 1;
       if (scrollAmount >= container.scrollWidth / 2) {
-        scrollAmount = 0; // reset to start
+        scrollAmount = 0; 
       }
       container.scrollLeft = scrollAmount;
       requestAnimationFrame(scroll);
@@ -39,11 +39,11 @@ const Testimonials = () => {
         ref={containerRef}
         className="flex gap-6 overflow-x-auto cursor-grab"
         style={{
-          scrollbarWidth: "none", // Firefox
-          msOverflowStyle: "none", // IE 10+
+          scrollbarWidth: "none", 
+          msOverflowStyle: "none", 
         }}
       >
-        {/* Hide scrollbar for Webkit browsers */}
+       
         <style>
           {`
             div::-webkit-scrollbar {
@@ -52,7 +52,7 @@ const Testimonials = () => {
           `}
         </style>
 
-        {/* Duplicate reviews for continuous loop */}
+       
         {[...reviews, ...reviews].map((review, index) => (
           <div
             key={index}

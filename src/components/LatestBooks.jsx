@@ -8,7 +8,7 @@ const LatestBooks = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/latestbooks")
+      .get("https://bookcourier-server-bice.vercel.app/latestbooks")
       .then((res) => setBooks(res.data))
       .catch((err) => console.error(err));
   }, []);
@@ -26,7 +26,7 @@ const LatestBooks = () => {
             className="bg-sky-50 dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow cursor-pointer overflow-hidden"
             onClick={() => navigate(`/book/${book._id}`)}
           >
-            {/* Image container with fixed height and object-contain */}
+          
             <div className="w-full h-48 flex items-center justify-center bg-white">
               <img
                 src={book.image}

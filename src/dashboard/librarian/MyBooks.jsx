@@ -9,12 +9,12 @@ const MyBooks = () => {
   const [selectedBook, setSelectedBook] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  /* ================= FETCH MY BOOKS ================= */
+  
   useEffect(() => {
     const fetchBooks = async () => {
       try {
         const token = await user.getIdToken();
-        const res = await axios.get("http://localhost:5000/mybooks", {
+        const res = await axios.get("https://bookcourier-server-bice.vercel.app/mybooks", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setBooks(res.data);
@@ -26,7 +26,7 @@ const MyBooks = () => {
     if (user) fetchBooks();
   }, [user]);
 
-  /* ================= UPDATE BOOK ================= */
+
   const handleUpdateBook = async (e) => {
     e.preventDefault();
 
@@ -34,7 +34,7 @@ const MyBooks = () => {
       const token = await user.getIdToken();
 
       await axios.patch(
-        `http://localhost:5000/books/${selectedBook._id}`,
+        `https://bookcourier-server-bice.vercel.app/books/${selectedBook._id}`,
         {
           title: selectedBook.title,
           author: selectedBook.author,
@@ -116,7 +116,7 @@ const MyBooks = () => {
         </table>
       </div>
 
-      {/* ================= EDIT MODAL ================= */}
+    
       {showModal && selectedBook && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-full max-w-md">

@@ -34,7 +34,7 @@ const Register = () => {
               background: "#e0f2fe",
               color: "#0369a1",
             });
-            navigate("/"); // redirect home
+            navigate("/"); 
           })
           .catch((err) => console.error(err));
       })

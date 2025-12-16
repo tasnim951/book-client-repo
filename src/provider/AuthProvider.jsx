@@ -15,34 +15,34 @@ const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [role, setRole] = useState("user"); // default role
+  const [role, setRole] = useState("user"); 
   const [loading, setLoading] = useState(true);
 
-  // Register
+  
   const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // Login
+  
   const loginUser = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // Google login
+  
   const googleLogin = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
-  // Logout
+  
   const logoutUser = () => {
     setLoading(true);
     return signOut(auth);
   };
 
-  // Update user profile
+  
   const updateUserProfile = (name, photoURL) => {
     if (auth.currentUser) {
       return updateProfile(auth.currentUser, { displayName: name, photoURL });
@@ -54,7 +54,7 @@ const AuthProvider = ({ children }) => {
   // Fetch role from backend
   const fetchUserRole = async (token) => {
     try {
-      const res = await fetch("http://localhost:5000/user", {
+      const res = await fetch("https://bookcourier-server-bice.vercel.app/user", {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -69,7 +69,7 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  // Observe Firebase auth state
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
         const token = await currentUser.getIdToken();
         await fetchUserRole(token);
       } else {
-        setRole("user"); // default role when logged out
+        setRole("user"); 
       }
       setLoading(false);
     });
@@ -104,7 +104,7 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-// Hook to use auth
+
 export const useAuth = () => useContext(AuthContext);
 
 export default AuthProvider;

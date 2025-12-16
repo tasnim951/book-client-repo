@@ -8,7 +8,7 @@ const MyOrders = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/myorders", {
+    fetch("https://bookcourier-server-bice.vercel.app/myorders", {
       headers: {
         Authorization: `Bearer ${user ? user.accessToken : ""}`,
       },
@@ -19,7 +19,7 @@ const MyOrders = () => {
   }, [user]);
 
   const handleCancel = async (id) => {
-    await fetch(`http://localhost:5000/orders/${id}/cancel`, {
+    await fetch(`https://bookcourier-server-bice.vercel.app/orders/${id}/cancel`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
@@ -47,7 +47,7 @@ const MyOrders = () => {
             <tr>
               <th className="px-6 py-3 text-left">Book Title</th>
               <th className="px-6 py-3 text-left">Order Date</th>
-              {/* Status column hidden on small screens */}
+             
               <th className="px-6 py-3 text-left hidden md:table-cell">Status</th>
               <th className="px-6 py-3 text-left">Actions</th>
             </tr>
@@ -60,7 +60,7 @@ const MyOrders = () => {
                 <td className="px-6 py-4">
                   {new Date(order.orderedAt).toLocaleDateString()}
                 </td>
-                {/* Status hidden on small screens */}
+                
                 <td className="px-6 py-4 capitalize hidden md:table-cell">
                   {order.status}
                 </td>

@@ -69,7 +69,8 @@ const ManageBooks = () => {
             <tr>
               <th className="p-2">Image</th>
               <th className="p-2">Title</th>
-              {/* Hide Author & Status on small screens */}
+              
+              
               <th className="p-2 hidden sm:table-cell">Author</th>
               <th className="p-2 hidden sm:table-cell">Status</th>
               <th className="p-2">Actions</th>

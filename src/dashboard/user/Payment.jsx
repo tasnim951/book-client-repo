@@ -10,11 +10,11 @@ const Payment = () => {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Fetch order details
+  
   useEffect(() => {
     const fetchOrder = async () => {
       const token = await user.getIdToken();
-      const res = await fetch(`http://localhost:5000/myorders`, {
+      const res = await fetch(`https://bookcourier-server-bice.vercel.app/myorders`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -28,7 +28,7 @@ const Payment = () => {
   const handlePayment = async () => {
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`http://localhost:5000/orders/${id}/pay`, {
+      const res = await fetch(`https://bookcourier-server-bice.vercel.app/orders/${id}/pay`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

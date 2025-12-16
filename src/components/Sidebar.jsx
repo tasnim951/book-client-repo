@@ -8,7 +8,7 @@ const Sidebar = ({ user, role, isOpen, toggleSidebar }) => {
 
   return (
     <>
-      {/* Overlay (mobile only) */}
+     
       {isOpen && (
         <div
           onClick={toggleSidebar}
@@ -16,14 +16,14 @@ const Sidebar = ({ user, role, isOpen, toggleSidebar }) => {
         />
       )}
 
-      {/* Sidebar */}
+      
       <aside
         className={`fixed md:static top-0 left-0 z-50 h-screen md:h-auto w-64 bg-sky-200 shadow-lg
           transform transition-transform duration-300
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0`}
       >
-        {/* Header */}
+        
         <div className="flex items-center justify-between p-4 border-b border-sky-300">
           <Link
             to="/"
@@ -32,13 +32,13 @@ const Sidebar = ({ user, role, isOpen, toggleSidebar }) => {
             <FiHome /> Home
           </Link>
 
-          {/* Close button (mobile only) */}
+          
           <button onClick={toggleSidebar} className="md:hidden text-2xl">
             <FiX />
           </button>
         </div>
 
-        {/* User Info */}
+        
         <div className="p-4 flex items-center gap-3 border-b border-sky-300">
           <img
             src={user?.photoURL || "https://via.placeholder.com/40"}
@@ -51,7 +51,7 @@ const Sidebar = ({ user, role, isOpen, toggleSidebar }) => {
           </div>
         </div>
 
-        {/* Navigation */}
+       
         <nav className="px-4 py-4 space-y-1 text-sky-800">
           {/* USER */}
           {role === "user" && (

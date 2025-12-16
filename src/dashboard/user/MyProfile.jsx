@@ -19,7 +19,7 @@ const MyProfile = () => {
     try {
       await updateUserProfile(name, photoURL);
 
-      // SweetAlert2 Toast
+      
       Swal.fire({
         toast: true,
         position: "top-end",

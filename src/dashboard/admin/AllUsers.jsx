@@ -10,7 +10,7 @@ const AllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const token = await user.getIdToken();
-      const res = await axios.get("http://localhost:5000/admin/users", {
+      const res = await axios.get("https://bookcourier-server-bice.vercel.app/admin/users", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUsers(res.data);
@@ -21,7 +21,7 @@ const AllUsers = () => {
   const updateRole = async (id, role) => {
     const token = await user.getIdToken();
     await axios.patch(
-      `http://localhost:5000/admin/users/${id}/role`,
+      `https://bookcourier-server-bice.vercel.app/admin/users/${id}/role`,
       { role },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -41,7 +41,8 @@ const AllUsers = () => {
           <thead className="bg-sky-100 text-sky-800">
             <tr>
               <th className="py-3 px-4 border-b text-left">Email</th>
-              {/* Hide Role on small screens */}
+          
+
               <th className="py-3 px-4 border-b text-left hidden sm:table-cell">Role</th>
               <th className="py-3 px-4 border-b text-left">Actions</th>
             </tr>

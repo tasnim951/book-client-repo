@@ -9,7 +9,7 @@ const Footer = () => {
     <footer className="bg-white dark:bg-gray-900 text-black dark:text-white pt-10 pb-6 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
 
-        {/* Logo & Description */}
+       
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-2">
             <FaBook className="text-sky-400 text-3xl" />
@@ -22,7 +22,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Quick Links */}
+        
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-lg">Quick Links</h3>
           <a href="/" className="hover:text-sky-400 transition">Home</a>
@@ -31,7 +31,7 @@ const Footer = () => {
           <a href="/register" className="hover:text-sky-400 transition">Register</a>
         </div>
 
-        {/* Social Icons */}
+       
         <div className="flex flex-col gap-2">
           <h3 className="font-semibold text-lg">Follow Us</h3>
           <div className="flex gap-4 text-xl mt-1">

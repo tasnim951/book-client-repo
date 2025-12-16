@@ -20,7 +20,7 @@ const AddBook = () => {
     e.preventDefault();
     try {
       const token = await user.getIdToken();
-      const res = await fetch("http://localhost:5000/books", {
+      const res = await fetch("https://bookcourier-server-bice.vercel.app/books", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +36,7 @@ const AddBook = () => {
           icon: "success",
           title: "Book Added!",
           text: data.message,
-          confirmButtonColor: "#0ea5e9", // matches theme
+          confirmButtonColor: "#0ea5e9", 
         });
         setBookData({
           title: "",
