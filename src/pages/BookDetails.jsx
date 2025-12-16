@@ -12,26 +12,26 @@ const BookDetails = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
-  /* Wishlist & Review */
+ 
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
-  /* ================= FETCH BOOK ================= */
+  
   useEffect(() => {
     fetch(`http://localhost:5000/book/${id}`)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         setBook(data);
         setLoading(false);
       });
   }, [id]);
 
-  /* ================= FETCH REVIEWS ================= */
+  
   useEffect(() => {
     fetch(`http://localhost:5000/reviews?bookId=${id}`)
-      .then(res => res.json())
-      .then(data => setReviews(data));
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
   }, [id]);
 
   if (authLoading) {
@@ -50,7 +50,7 @@ const BookDetails = () => {
     return <div className="text-center py-20">Loading book details...</div>;
   }
 
-  /* ================= ORDER ================= */
+  
   const handleOrder = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -66,7 +66,7 @@ const BookDetails = () => {
         price: book.price,
         phone: form.phone.value,
         address: form.address.value,
-        date: new Date().toISOString(),
+        createdAt: new Date().toISOString(),
         status: "pending",
         paymentStatus: "unpaid",
       };
@@ -100,46 +100,45 @@ const BookDetails = () => {
     }
   };
 
-  /* ================= WISHLIST ================= */
+  
   const handleWishlist = async () => {
-  try {
-    const token = await user.getIdToken();
-    const res = await fetch("http://localhost:5000/wishlist", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({
-        bookId: book._id,
-        title: book.title,
-        image: book.image,     
-        price: book.price,     
-        author: book.author,   
-        category: book.category, 
-        userEmail: user.email,
-      }),
-    });
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch("http://localhost:5000/wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          bookId: book._id,
+          bookTitle: book.title,
+          image: book.image,
+          price: book.price,
+          author: book.author,
+          category: book.category,
+          userEmail: user.email,
+        }),
+      });
 
-    const result = await res.json();
+      const result = await res.json();
 
-    Swal.fire({
-      toast: true,
-      position: "top-end",
-      icon: "success",
-      title: result.message || "Added to wishlist",
-      showConfirmButton: false,
-      timer: 2000,
-      background: "#e0f2fe",
-      color: "#0369a1",
-    });
-  } catch {
-    Swal.fire("Error", "Failed to add wishlist", "error");
-  }
-};
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: result.message || "Added to wishlist",
+        showConfirmButton: false,
+        timer: 2000,
+        background: "#e0f2fe",
+        color: "#0369a1",
+      });
+    } catch {
+      Swal.fire("Error", "Failed to add wishlist", "error");
+    }
+  };
 
-
-  /* ================= REVIEW ================= */
+  
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -157,14 +156,14 @@ const BookDetails = () => {
           userEmail: user.email,
           rating,
           comment,
-          date: new Date().toISOString(),
+          createdAt: new Date().toISOString(),
         }),
       });
 
       const result = await res.json();
 
       if (result.success) {
-        setReviews(prev => [...prev, result.review]);
+        setReviews((prev) => [...prev, { ...result.review, userName: user.displayName, rating, comment }]);
         setComment("");
 
         Swal.fire({
@@ -183,7 +182,7 @@ const BookDetails = () => {
 
   return (
     <section className="max-w-6xl mx-auto px-5 py-16">
-      {/* ================= BOOK INFO ================= */}
+     
       <div className="grid md:grid-cols-2 gap-10">
         <img
           src={book.image}
@@ -215,19 +214,19 @@ const BookDetails = () => {
         </div>
       </div>
 
-      {/* ================= REVIEWS ================= */}
+      
       <div className="mt-16">
         <h2 className="text-2xl font-bold text-sky-700 mb-6">
           Customer Reviews
         </h2>
 
-        {/* Review Form */}
+        
         <form
           onSubmit={handleReviewSubmit}
           className="bg-sky-50 p-6 rounded-xl shadow mb-8"
         >
           <div className="flex items-center gap-2 mb-4">
-            {[1, 2, 3, 4, 5].map(star => (
+            {[1, 2, 3, 4, 5].map((star) => (
               <FaStar
                 key={star}
                 size={26}
@@ -242,7 +241,7 @@ const BookDetails = () => {
 
           <textarea
             value={comment}
-            onChange={e => setComment(e.target.value)}
+            onChange={(e) => setComment(e.target.value)}
             placeholder="Write your honest review..."
             className="w-full border rounded-lg p-3"
             rows={4}
@@ -254,7 +253,7 @@ const BookDetails = () => {
           </button>
         </form>
 
-        {/* Review List */}
+      
         {reviews.length === 0 && (
           <p className="text-gray-500">No reviews yet.</p>
         )}
@@ -267,13 +266,11 @@ const BookDetails = () => {
             <div className="flex justify-between mb-2">
               <p className="font-semibold text-sky-700">{r.userName}</p>
               <div className="flex">
-                {[1,2,3,4,5].map(star => (
+                {[1, 2, 3, 4, 5].map((star) => (
                   <FaStar
                     key={star}
                     size={16}
-                    className={
-                      star <= r.rating ? "text-sky-500" : "text-gray-300"
-                    }
+                    className={star <= r.rating ? "text-sky-500" : "text-gray-300"}
                   />
                 ))}
               </div>
@@ -283,7 +280,7 @@ const BookDetails = () => {
         ))}
       </div>
 
-      {/* ================= ORDER MODAL ================= */}
+   
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <form
@@ -291,9 +288,21 @@ const BookDetails = () => {
             className="bg-white p-6 rounded-xl w-full max-w-md"
           >
             <h2 className="text-xl font-bold mb-4 text-sky-600">
-            
-                {book.title}
+              Order: {book.title}
             </h2>
+
+            <input
+              name="name"
+              value={user.displayName || "No Name"}
+              readOnly
+              className="w-full border p-3 mb-3 rounded bg-gray-100"
+            />
+            <input
+              name="email"
+              value={user.email}
+              readOnly
+              className="w-full border p-3 mb-3 rounded bg-gray-100"
+            />
 
             <input
               name="phone"
