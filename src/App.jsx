@@ -25,6 +25,7 @@ import ManageBooks from "./dashboard/admin/ManageBooks";
 
 // Auth
 import { useAuth } from "./provider/AuthProvider";
+import MyWishlist from "./dashboard/MyWishlist";
 
 // ProtectedRoute Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -98,6 +99,16 @@ function App() {
                    </ProtectedRoute>
                      }
            />
+           
+             <Route
+                path="wishlist"
+             element={
+                  <ProtectedRoute allowedRoles={["user"]}>
+                     <MyWishlist />
+                   </ProtectedRoute>
+                     }
+           />
+           
            
 
           {/* LIBRARIAN DASHBOARD */}

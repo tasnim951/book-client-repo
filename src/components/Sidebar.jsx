@@ -59,6 +59,8 @@ const Sidebar = ({ user, role, isOpen, toggleSidebar }) => {
               <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/my-orders")}`} to="/dashboard/my-orders">My Orders</Link>
               <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/invoices")}`} to="/dashboard/invoices">Invoices</Link>
               <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/profile")}`} to="/dashboard/profile">My Profile</Link>
+              <Link className={`block px-3 py-2 rounded ${isActive("/dashboard/wishlist")}`}to="/dashboard/wishlist">My Wishlist</Link>
+
             </>
           )}
 

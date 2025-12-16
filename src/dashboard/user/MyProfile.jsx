@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const MyProfile = () => {
   const { user, updateUserProfile } = useAuth();
@@ -17,10 +18,32 @@ const MyProfile = () => {
     e.preventDefault();
     try {
       await updateUserProfile(name, photoURL);
-      alert("Profile updated successfully!");
+
+      // SweetAlert2 Toast
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "success",
+        title: "Profile updated successfully!",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#e0f2fe", 
+        color: "#0369a1", 
+      });
     } catch (err) {
       console.error(err);
-      alert("Failed to update profile");
+      Swal.fire({
+        toast: true,
+        position: "top-end",
+        icon: "error",
+        title: "Failed to update profile",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: "#fef2f2",
+        color: "#b91c1c",
+      });
     }
   };
 

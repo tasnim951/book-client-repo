@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router";
 import { MdOutlineMenu, MdClose, MdDarkMode, MdLightMode } from "react-icons/md";
 import { FaBook } from "react-icons/fa"; 
-import profileImg from "../assets/profile.png"; // your profile image
-import { AuthContext } from "../provider/AuthProvider"; // your auth provider
+import profileImg from "../assets/profile.png"; 
+import { AuthContext } from "../provider/AuthProvider";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -97,15 +97,14 @@ const Navbar = () => {
             <>
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                className="px-4 py-2 rounded-lg bg-sky-500 text-white hover:bg-sky-600"
               >
                 Logout
               </button>
               <img
                 src={profileImg}
                 alt="Profile"
-                onClick={() => navigate("/profile")}
-                className="w-8 h-8 rounded-full cursor-pointer border-2 border-sky-400"
+               className="w-8 h-8 rounded-full cursor-pointer border-2 border-sky-400"
               />
             </>
           )}
