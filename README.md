@@ -1,16 +1,47 @@
-# React + Vite
+# BookCourier – Library-to-Home Delivery System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview
+BookCourier is a library-to-home book delivery system that allows users to browse, order, and receive books without visiting the library. Librarians can manage books and orders, and admins can manage users and books.
 
-Currently, two official plugins are available:
+## Live URL
+[Insert your live deployment URL here]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Key Features
+- **Browse & Order Books:** View book details, place orders via a modal form (pre-filled name/email), order status: `pending`, payment status: `unpaid`.
+- **Wishlist & Reviews:** Add books to wishlist; leave ratings and reviews after ordering.
+- **Payment Integration:** Pay for orders securely; payment status updates automatically.
+- **User Dashboard:** My Orders, Invoices, Profile update.
+- **Librarian Dashboard:** Add/Edit books, Manage orders, Update order status.
+- **Admin Dashboard:** Manage all users and books.
+- **UI/UX:** Responsive design, clean layout, consistent buttons, modern navbar/footer, optional dark/light mode.
 
-## React Compiler
+## Tech Stack & NPM Packages
+- **Frontend:** React, React Router, Tailwind CSS, React Icons, SweetAlert2  
+- **Backend:** Node.js, Express, MongoDB  
+- **Authentication:** Firebase (email/password + social login)  
+- **Optional:** TanStack Query for data fetching, Skeleton loaders for better UX  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Setup
+1. Clone the repo:  
+```bash
+git clone https://github.com/yourusername/bookcourier.git 
+ ```
 
-## Expanding the ESLint configuration
+##
+2. Install dependencies:
+```bash
+npm install
+```
+## 
+  3. Start client:
+```bash
+ npm start
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 
+4. Start server:
+```bash
+cd server
+npm install
+npm run dev
+```
