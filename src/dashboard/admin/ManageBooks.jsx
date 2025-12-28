@@ -10,7 +10,7 @@ const ManageBooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       const token = await user.getIdToken();
-      const res = await axios.get("http://localhost:5000/admin/books", {
+      const res = await axios.get("https://bookcourier-server-bice.vercel.app/admin/books", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBooks(res.data);
@@ -23,7 +23,7 @@ const ManageBooks = () => {
     const newStatus = book.status === "published" ? "unpublished" : "published";
 
     await axios.patch(
-      `http://localhost:5000/admin/books/${book._id}/status`,
+      `https://bookcourier-server-bice.vercel.app/admin/books/${book._id}/status`,
       { status: newStatus },
       { headers: { Authorization: `Bearer ${token}` } }
     );
@@ -50,7 +50,7 @@ const ManageBooks = () => {
     if (!result.isConfirmed) return;
 
     const token = await user.getIdToken();
-    await axios.delete(`http://localhost:5000/admin/books/${bookId}`, {
+    await axios.delete(`https://bookcourier-server-bice.vercel.app/admin/books/${bookId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -70,7 +70,7 @@ const ManageBooks = () => {
               <th className="p-2">Image</th>
               <th className="p-2">Title</th>
               
-              
+
               <th className="p-2 hidden sm:table-cell">Author</th>
               <th className="p-2 hidden sm:table-cell">Status</th>
               <th className="p-2">Actions</th>
