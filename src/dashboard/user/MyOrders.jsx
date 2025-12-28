@@ -38,30 +38,30 @@ const MyOrders = () => {
   };
 
   return (
-    <div className="bg-white shadow rounded p-6">
-      <h2 className="text-xl font-bold mb-4 text-sky-800">My Orders</h2>
+    <div className="bg-white dark:bg-gray-900 shadow rounded p-6 transition-colors duration-300">
+      <h2 className="text-xl font-bold mb-4 text-sky-800 dark:text-sky-400">
+        My Orders
+      </h2>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-sky-100">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-sky-100 dark:bg-sky-900">
             <tr>
-              <th className="px-6 py-3 text-left">Book Title</th>
-              <th className="px-6 py-3 text-left">Order Date</th>
-             
-              <th className="px-6 py-3 text-left hidden md:table-cell">Status</th>
-              <th className="px-6 py-3 text-left">Actions</th>
+              <th className="px-6 py-3 text-left text-gray-700 dark:text-gray-300">Book Title</th>
+              <th className="px-6 py-3 text-left text-gray-700 dark:text-gray-300">Order Date</th>
+              <th className="px-6 py-3 text-left hidden md:table-cell text-gray-700 dark:text-gray-300">Status</th>
+              <th className="px-6 py-3 text-left text-gray-700 dark:text-gray-300">Actions</th>
             </tr>
           </thead>
 
-          <tbody className="bg-white divide-y divide-gray-200">
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
             {orders.map(order => (
               <tr key={order._id}>
-                <td className="px-6 py-4">{order.bookTitle}</td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4 text-black dark:text-white">{order.bookTitle}</td>
+                <td className="px-6 py-4 text-black dark:text-white">
                   {new Date(order.orderedAt).toLocaleDateString()}
                 </td>
-                
-                <td className="px-6 py-4 capitalize hidden md:table-cell">
+                <td className="px-6 py-4 capitalize hidden md:table-cell text-black dark:text-white">
                   {order.status}
                 </td>
 
@@ -86,7 +86,7 @@ const MyOrders = () => {
                     )}
 
                   {order.paymentStatus === "paid" && (
-                    <span className="text-blue-600 text-xl font-semibold">
+                    <span className="text-blue-600 dark:text-blue-400 text-xl font-semibold">
                       Paid
                     </span>
                   )}
@@ -96,7 +96,7 @@ const MyOrders = () => {
 
             {orders.length === 0 && (
               <tr>
-                <td colSpan="4" className="text-center py-4 text-gray-500">
+                <td colSpan="4" className="text-center py-4 text-gray-500 dark:text-gray-400">
                   You have no orders yet.
                 </td>
               </tr>
