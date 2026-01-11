@@ -10,9 +10,12 @@ const AllUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const token = await user.getIdToken();
-      const res = await axios.get("https://bookcourier-server-bice.vercel.app/admin/users", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axios.get(
+        "https://bookcourier-server-bice.vercel.app/admin/users",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setUsers(res.data);
     };
     fetchUsers();
@@ -33,37 +36,78 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="p-4 md:p-6 bg-white shadow-lg rounded-lg">
-      <h2 className="text-2xl font-bold mb-4 text-sky-700">All Users</h2>
+    <div className="p-3 sm:p-4 md:p-6 bg-white shadow-lg rounded-lg">
+      <h2 className="text-lg sm:text-2xl font-bold mb-4 text-sky-700">
+        All Users
+      </h2>
 
-      <div className="overflow-x-auto">
-        <table className="w-full border border-gray-200 rounded-lg min-w-[280px]">
+      {/* ✅ MOBILE VIEW (Cards) */}
+      <div className="space-y-4 sm:hidden">
+        {users.map(u => (
+          <div
+            key={u._id}
+            className="border rounded-lg p-4 shadow-sm"
+          >
+            <p className="text-sm break-all">
+              <span className="font-semibold">Email:</span> {u.email}
+            </p>
+
+            <p className="mt-1 capitalize text-sm">
+              <span className="font-semibold">Role:</span> {u.role}
+            </p>
+
+            <div className="mt-3 flex flex-col gap-2">
+              <button
+                onClick={() => updateRole(u._id, "librarian")}
+                className="w-full px-4 py-2 bg-sky-500 text-white rounded"
+              >
+                Make Librarian
+              </button>
+              <button
+                onClick={() => updateRole(u._id, "admin")}
+                className="w-full px-4 py-2 bg-sky-700 text-white rounded"
+              >
+                Make Admin
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ✅ TABLE VIEW (Tablet & Desktop) */}
+      <div className="hidden sm:block overflow-x-auto">
+        <table className="w-full border border-gray-200 rounded-lg">
           <thead className="bg-sky-100 text-sky-800">
             <tr>
-              <th className="py-3 px-4 border-b text-left">Email</th>
-          
-
-              <th className="py-3 px-4 border-b text-left hidden sm:table-cell">Role</th>
-              <th className="py-3 px-4 border-b text-left">Actions</th>
+              <th className="py-3 px-4 text-left">Email</th>
+              <th className="py-3 px-4 text-left">Role</th>
+              <th className="py-3 px-4 text-left">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {users.map(u => (
-              <tr key={u._id} className="border-b hover:bg-sky-50">
-                <td className="py-3 px-4 break-words">{u.email}</td>
-                <td className="py-3 px-4 capitalize hidden sm:table-cell">{u.role}</td>
+              <tr
+                key={u._id}
+                className="border-b hover:bg-sky-50"
+              >
+                <td className="py-3 px-4 break-all">
+                  {u.email}
+                </td>
+                <td className="py-3 px-4 capitalize">
+                  {u.role}
+                </td>
                 <td className="py-3 px-4">
-                  <div className="flex flex-col sm:flex-row sm:space-x-3 space-y-2 sm:space-y-0">
+                  <div className="flex gap-3">
                     <button
                       onClick={() => updateRole(u._id, "librarian")}
-                      className="w-full sm:w-auto px-4 py-2 bg-sky-500 text-white rounded hover:bg-sky-600 transition"
+                      className="px-4 py-2 bg-sky-500 text-white rounded"
                     >
                       Make Librarian
                     </button>
                     <button
                       onClick={() => updateRole(u._id, "admin")}
-                      className="w-full sm:w-auto px-4 py-2 bg-sky-700 text-white rounded hover:bg-sky-800 transition"
+                      className="px-4 py-2 bg-sky-700 text-white rounded"
                     >
                       Make Admin
                     </button>
