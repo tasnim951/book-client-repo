@@ -12,9 +12,7 @@ const AllUsers = () => {
       const token = await user.getIdToken();
       const res = await axios.get(
         "https://bookcourier-server-bice.vercel.app/admin/users",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       setUsers(res.data);
     };
@@ -30,10 +28,16 @@ const AllUsers = () => {
     );
 
     Swal.fire("Success", `User is now ${role}`, "success");
-    setUsers(prev =>
-      prev.map(u => (u._id === id ? { ...u, role } : u))
+    setUsers((prev) =>
+      prev.map((u) => (u._id === id ? { ...u, role } : u))
     );
   };
+
+  // ✅ Button animation classes
+  const btnLibrarian =
+    "w-full sm:w-auto px-4 py-2 bg-sky-500 text-white rounded transition-all duration-200 ease-in-out hover:bg-sky-600 hover:shadow-lg hover:-translate-y-0.5 active:scale-95";
+  const btnAdmin =
+    "w-full sm:w-auto px-4 py-2 bg-sky-700 text-white rounded transition-all duration-200 ease-in-out hover:bg-sky-800 hover:shadow-lg hover:-translate-y-0.5 active:scale-95";
 
   return (
     <div className="p-3 sm:p-4 md:p-6 bg-white shadow-lg rounded-lg">
@@ -41,40 +45,38 @@ const AllUsers = () => {
         All Users
       </h2>
 
-      {/* ✅ MOBILE VIEW (Cards) */}
+      {/* MOBILE VIEW (Cards) */}
       <div className="space-y-4 sm:hidden">
-        {users.map(u => (
-          <div
-            key={u._id}
-            className="border rounded-lg p-4 shadow-sm"
-          >
+        {users.map((u) => (
+          <div key={u._id} className="border rounded-lg p-4 shadow-sm">
             <p className="text-sm break-all">
               <span className="font-semibold">Email:</span> {u.email}
             </p>
-
             <p className="mt-1 capitalize text-sm">
               <span className="font-semibold">Role:</span> {u.role}
             </p>
-
             <div className="mt-3 flex flex-col gap-2">
               <button
                 onClick={() => updateRole(u._id, "librarian")}
-                className="w-full px-4 py-2 bg-sky-500 text-white rounded"
+                className={btnLibrarian}
               >
                 Make Librarian
               </button>
               <button
                 onClick={() => updateRole(u._id, "admin")}
-                className="w-full px-4 py-2 bg-sky-700 text-white rounded"
+                className={btnAdmin}
               >
                 Make Admin
               </button>
             </div>
           </div>
         ))}
+        {users.length === 0 && (
+          <p className="text-center text-gray-500">No users found</p>
+        )}
       </div>
 
-      {/* ✅ TABLE VIEW (Tablet & Desktop) */}
+      {/* TABLE VIEW (Tablet & Desktop) */}
       <div className="hidden sm:block overflow-x-auto">
         <table className="w-full border border-gray-200 rounded-lg">
           <thead className="bg-sky-100 text-sky-800">
@@ -86,28 +88,21 @@ const AllUsers = () => {
           </thead>
 
           <tbody>
-            {users.map(u => (
-              <tr
-                key={u._id}
-                className="border-b hover:bg-sky-50"
-              >
-                <td className="py-3 px-4 break-all">
-                  {u.email}
-                </td>
-                <td className="py-3 px-4 capitalize">
-                  {u.role}
-                </td>
+            {users.map((u) => (
+              <tr key={u._id} className="border-b hover:bg-sky-50">
+                <td className="py-3 px-4 break-all">{u.email}</td>
+                <td className="py-3 px-4 capitalize">{u.role}</td>
                 <td className="py-3 px-4">
                   <div className="flex gap-3">
                     <button
                       onClick={() => updateRole(u._id, "librarian")}
-                      className="px-4 py-2 bg-sky-500 text-white rounded"
+                      className={btnLibrarian}
                     >
                       Make Librarian
                     </button>
                     <button
                       onClick={() => updateRole(u._id, "admin")}
-                      className="px-4 py-2 bg-sky-700 text-white rounded"
+                      className={btnAdmin}
                     >
                       Make Admin
                     </button>
@@ -115,11 +110,13 @@ const AllUsers = () => {
                 </td>
               </tr>
             ))}
-
             {users.length === 0 && (
               <tr>
-                <td colSpan={3} className="py-6 text-center text-gray-500">
-                  No users found.
+                <td
+                  colSpan={3}
+                  className="py-6 text-center text-gray-500"
+                >
+                  No users found
                 </td>
               </tr>
             )}
