@@ -12,12 +12,11 @@ const BookDetails = () => {
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
- 
   const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
-  
+  /* ---------------- FETCH BOOK ---------------- */
   useEffect(() => {
     fetch(`https://bookcourier-server-bice.vercel.app/book/${id}`)
       .then((res) => res.json())
@@ -27,7 +26,7 @@ const BookDetails = () => {
       });
   }, [id]);
 
-  
+  /* ---------------- FETCH REVIEWS ---------------- */
   useEffect(() => {
     fetch(`https://bookcourier-server-bice.vercel.app/reviews?bookId=${id}`)
       .then((res) => res.json())
@@ -50,7 +49,7 @@ const BookDetails = () => {
     return <div className="text-center py-20">Loading book details...</div>;
   }
 
-  
+  /* ---------------- ORDER ---------------- */
   const handleOrder = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -71,14 +70,17 @@ const BookDetails = () => {
         paymentStatus: "unpaid",
       };
 
-      const res = await fetch("https://bookcourier-server-bice.vercel.app/order", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(orderData),
-      });
+      const res = await fetch(
+        "https://bookcourier-server-bice.vercel.app/order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(orderData),
+        }
+      );
 
       const result = await res.json();
 
@@ -90,8 +92,6 @@ const BookDetails = () => {
           title: "Order placed successfully",
           showConfirmButton: false,
           timer: 2000,
-          background: "#e0f2fe",
-          color: "#0369a1",
         });
         setShowModal(false);
       }
@@ -100,26 +100,29 @@ const BookDetails = () => {
     }
   };
 
-  
+  /* ---------------- WISHLIST ---------------- */
   const handleWishlist = async () => {
     try {
       const token = await user.getIdToken();
-      const res = await fetch("https://bookcourier-server-bice.vercel.app/wishlist", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          bookId: book._id,
-          bookTitle: book.title,
-          image: book.image,
-          price: book.price,
-          author: book.author,
-          category: book.category,
-          userEmail: user.email,
-        }),
-      });
+      const res = await fetch(
+        "https://bookcourier-server-bice.vercel.app/wishlist",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            bookTitle: book.title,
+            image: book.image,
+            price: book.price,
+            author: book.author,
+            category: book.category,
+            userEmail: user.email,
+          }),
+        }
+      );
 
       const result = await res.json();
 
@@ -130,40 +133,44 @@ const BookDetails = () => {
         title: result.message || "Added to wishlist",
         showConfirmButton: false,
         timer: 2000,
-        background: "#e0f2fe",
-        color: "#0369a1",
       });
     } catch {
       Swal.fire("Error", "Failed to add wishlist", "error");
     }
   };
 
-  
+  /* ---------------- REVIEW ---------------- */
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
     try {
       const token = await user.getIdToken();
 
-      const res = await fetch("https://bookcourier-server-bice.vercel.app/reviews", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          bookId: book._id,
-          userName: user.displayName,
-          userEmail: user.email,
-          rating,
-          comment,
-          createdAt: new Date().toISOString(),
-        }),
-      });
+      const res = await fetch(
+        "https://bookcourier-server-bice.vercel.app/reviews",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            bookId: book._id,
+            userName: user.displayName,
+            userEmail: user.email,
+            rating,
+            comment,
+            createdAt: new Date().toISOString(),
+          }),
+        }
+      );
 
       const result = await res.json();
 
       if (result.success) {
-        setReviews((prev) => [...prev, { ...result.review, userName: user.displayName, rating, comment }]);
+        setReviews((prev) => [
+          ...prev,
+          { ...result.review, userName: user.displayName, rating, comment },
+        ]);
         setComment("");
 
         Swal.fire({
@@ -181,32 +188,33 @@ const BookDetails = () => {
   };
 
   return (
-    <section className="max-w-6xl mx-auto px-5 py-16">
-     
-      <div className="grid md:grid-cols-2 gap-10">
+    <section className="max-w-6xl mx-auto px-4 py-14">
+      {/* BOOK INFO */}
+      <div className="grid md:grid-cols-2 gap-10 items-center">
         <img
           src={book.image}
           alt={book.title}
-          className="w-80 h-[450px] object-cover rounded-xl shadow-lg"
+          className="w-72 md:w-80 h-[420px] object-cover rounded-xl shadow-lg mx-auto"
         />
 
         <div>
           <h1 className="text-3xl font-bold mb-3">{book.title}</h1>
-          <p className="text-gray-700 mb-1"><b>Author:</b> {book.author}</p>
-          <p className="text-gray-700 mb-1"><b>Category:</b> {book.category}</p>
+          <p className="text-gray-700"><b>Author:</b> {book.author}</p>
+          <p className="text-gray-700"><b>Category:</b> {book.category}</p>
           <p className="text-gray-700 mb-4"><b>Price:</b> ${book.price}</p>
 
-          <div className="flex gap-4 mt-6">
+          <div className="flex flex-wrap gap-4 mt-6">
             <button
               onClick={() => setShowModal(true)}
-              className="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg"
+              className="bg-sky-500 hover:bg-sky-600 transition text-white px-6 py-3 rounded-lg"
             >
               Order Now
             </button>
 
             <button
               onClick={handleWishlist}
-              className="border border-sky-500 text-sky-600 px-6 py-3 rounded-lg flex items-center gap-2"
+              className="border border-sky-500 text-sky-600 px-6 py-3 rounded-lg
+              flex items-center gap-2 transition hover:bg-sky-50 hover:scale-105"
             >
               <FaHeart /> Wishlist
             </button>
@@ -214,13 +222,17 @@ const BookDetails = () => {
         </div>
       </div>
 
-      
+      {/* REVIEWS */}
       <div className="mt-16">
-        <h2 className="text-2xl font-bold text-sky-700 mb-6">
+        <h2 className="text-2xl font-bold text-sky-700 mb-2">
           Customer Reviews
         </h2>
 
-        
+        {/* 👇 REQUIRED LINE */}
+        <p className="text-sm text-gray-500 mb-6">
+          You can only add a review after ordering this book.
+        </p>
+
         <form
           onSubmit={handleReviewSubmit}
           className="bg-sky-50 p-6 rounded-xl shadow mb-8"
@@ -248,12 +260,11 @@ const BookDetails = () => {
             required
           />
 
-          <button className="mt-4 bg-sky-500 hover:bg-sky-600 text-white px-6 py-2 rounded-lg">
+          <button className="mt-4 bg-sky-500 hover:bg-sky-600 transition text-white px-6 py-2 rounded-lg">
             Submit Review
           </button>
         </form>
 
-      
         {reviews.length === 0 && (
           <p className="text-gray-500">No reviews yet.</p>
         )}
@@ -280,7 +291,7 @@ const BookDetails = () => {
         ))}
       </div>
 
-   
+      {/* ORDER MODAL */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <form
@@ -292,13 +303,11 @@ const BookDetails = () => {
             </h2>
 
             <input
-              name="name"
               value={user.displayName || "No Name"}
               readOnly
               className="w-full border p-3 mb-3 rounded bg-gray-100"
             />
             <input
-              name="email"
               value={user.email}
               readOnly
               className="w-full border p-3 mb-3 rounded bg-gray-100"
@@ -322,7 +331,6 @@ const BookDetails = () => {
               <button
                 type="button"
                 onClick={() => setShowModal(false)}
-                className="px-4 py-2"
               >
                 Cancel
               </button>
